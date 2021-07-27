@@ -1,0 +1,367 @@
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Indian Stock market Average Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="description" content="This application allows to calculate stock average on entering first and second buy details" />
+	<meta name="keywords" content="Indian stock market, average calculator, stock calculator, cash and carry calculator, intraday stock price calculator, future & option stock price calculator, zerodha, upstox, kite login, zerodha calculator, ">
+	<meta name="author" content="Praveen MP">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	
+	<link rel = "icon" href ="images/icon.png" 
+        type = "image/x-icon">
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<!-- pop up box -->
+	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- font-awesome icons -->
+	<link href="css/fontawesome-all.min.css" rel="stylesheet">
+	<!-- //Custom Theme files -->
+	<!-- online fonts -->
+	<!-- titles -->
+	<link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+	<!-- body -->
+	<link href="//fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+</head>
+
+<body>
+	
+	<!-- header -->
+	<header>
+	<div class="top">
+			<div class="container">
+				<div class="t-op row">
+					<div class="col-sm-6 top-middle">
+						<ul>
+							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+							<li><a href="https://www.youtube.com/channel/UCtKeXx2nH7Kab4SiCI9iT3w?sub_confirmation=1"><i class="fab fa-youtube"></i></a></li>
+						</ul>
+					</div>
+					<div class="col-sm-6 top-left">
+						<ul>
+							<li><i class="fas fa-email"></i> </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" style="background:white">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<h1>
+					<a class="navbar-brand text-capitalize" href="#">
+						Share Market Live Trader
+					</a>
+				</h1>
+			</nav>
+		</div>
+	</header>
+	<!-- //header -->
+	
+ 
+
+<!-- average price calculator -->
+	<section class="wthree-row w3-about py-5">
+		<div class="container py-md-4 mt-md-3">
+			<h3 class="heading-agileinfo">Indian stock market average calculator</h3>
+			<span class="w3-line black"></span>
+			<div class="card-deck mt-md-5 pt-5">
+				  <div class="card">
+				  <div class="card-body">
+				  <h5 class="card-title">First Buy</h5>
+					<div class="card-body w3ls-card">
+					     <div class="row">
+						 <div class="col-sm-6">
+							<label style="float:left;margin-right:10px;">Units</label>
+							<input class="form-control" placeholder="Enter Quantity" type="number" id="units1" autocomplete="off" onchange="unitChanged('units1','error1')" />
+							<span id='error1'></span>
+						 </div>
+						 <div class="col-sm-6">
+							<label style="float:left;margin-right:10px;">Price</label>
+							<input class="form-control" placeholder="Enter Price" type="number" id="Price1" autocomplete="off" onchange="unitChanged('Price1','error2')" />
+							<span id='error2'></span>
+						 </div>
+						 </div>
+					</div>
+				  </div>
+				  </div>
+				   <div class="card">
+				  <div class="card-body">
+				  <h5 class="card-title">Second Buy</h5>
+					<div class="card-body w3ls-card">
+					     <div class="row">
+						 <div class="col-sm-6">
+								<label style="float:left;margin-right:10px;">Units</label>
+								<input class="form-control" placeholder="Enter Quantity" type="number" id="units2" autocomplete="off" onchange="unitChanged('units2','error3')" />
+								<span id='error3'></span>
+						 </div>
+						 <div class="col-sm-6">
+							<label style="float:left;margin-right:10px;">Price</label>
+							<input class="form-control" placeholder="Enter Price" type="number" id="Price2" autocomplete="off" onchange="unitChanged('Price2','error4');getAverage()">
+							<span id='error4'></span>
+						 </div>
+						 </div>
+					</div>
+				  </div>
+				  </div>
+				</div>
+				
+				
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="shadow p-3 mb-5 bg-white rounded text-center"><div class="row">
+					<div class="col-md-6">
+						<h5 id="investedamount1"></h5>
+					</div>
+					<div class="col-md-6">
+						<h5 id="investedamount2"></h5>
+					</div>
+					</div>
+					<div class="row">
+					<div class="col-md-12 st">
+						<h5 id="result"></h5><br><br>
+					</div>
+					
+					</div>
+					<div class="row">
+						<div class="col-md-12 st">
+							<button class="btn btn-outline-success" onclick="getAverage()"> Calculate Average</button>
+							<button class="btn btn-outline-danger" onclick="clearFields()">Clear Fields</button>
+						</div>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>			
+            </div>
+        </section>
+<!-- //news -->
+
+<!-- clients -->
+	<section class="features py-md-5">
+		<div class="container py-md-4 mt-md-3">
+			<h3 class="heading-agileinfo text-white">Play with stock market <span class="text-white">Speed Up to Grow Yourself</span></h3>
+			<span class="w3-line black"></span>
+			<div class="row about-main pt-5 mt-md-5">
+				<div class="col-lg-12 col-md-12 col-sm-12 about-right">
+				<!-- stats -->
+					<div class="stats1">
+						<div class="row stats_inner">
+							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
+								<img src="images/upstox.jpg" alt="logo1" class=" img-fluid">
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
+								<img src="images/zerodha.png" alt="logo1" class=" img-fluid">
+							</div>
+						</div>
+						<div class="row stats_inner top-st">
+							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
+								<img src="images/youtube.jpg" alt="logo1" class=" img-fluid">
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
+								<img src="images/coinkuber.jpg" alt="logo1" class=" img-fluid">
+							</div>
+							
+						</div>
+						
+					</div>
+					<!-- //stats -->
+				</div>
+					    
+			</div>
+			</div>
+		</div>
+</section>
+<!-- clients -->
+
+
+<!--footer-->
+	<footer>
+		<div class="container py-md-4 mt-md-3">
+			<div class="row footer-top-w3layouts-agile py-5">
+				<div class="col-lg-3 col-md-6 col-sm-6 footer-grid">
+					<div class="footer-title">
+						<h3>About Us</h3>
+					</div>
+					<div class="footer-text">
+						<p>We are a team where you can get free analysis video and information to invest your money in good stocks and make profit.</p>
+
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 footer-grid">
+					<div class="footer-title">
+						<h3>Contact Us</h3>
+					</div>
+					<div class="footer-office-hour">
+						<ul>
+							<li class="hd"></li>
+							<li></li>
+
+						</ul>
+						<ul>
+							<li class="hd"></li>
+							<li class="hd">Email:
+								<a href="mailto:sharemarketlt@gmail.com">sharemarketlt@gmail.com</a>
+							</li>
+							<li class="hd"></li>
+						</ul>
+					</div>
+				</div>
+			
+				
+				</div>
+				<div class="col-lg-3 col-md-6 col-sm-6 footer-grid">
+					<div class="footer-title">
+						<h3>Subscribe</h3>
+					</div>
+					<p>To get notification about stocks and IPO's</p>
+					<form action="#" method="post" class="newsletter">
+						<input class="email" type="email" placeholder="Your email..." required="">
+						<button class="btn1">
+							<i class="far fa-envelope"></i>
+						</button>
+					</form>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!---->
+	<div class="copyright py-3">
+		<div class="container">
+			<div class="copyrighttop">
+				<ul>
+					<li>
+						<h4>Follow us on:</h4>
+					</li>
+					<li>
+						<a class="facebook" href="#">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+					</li>
+					<li>
+						<a class="facebook" href="#">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a class="facebook" href="#">
+							<i class="fab fa-google-plus-g"></i>
+						</a>
+					</li>
+					<li>
+						<a class="facebook" href="https://www.youtube.com/channel/UCtKeXx2nH7Kab4SiCI9iT3w?sub_confirmation=1">
+							<i class="fab youtube"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="copyrightbottom">
+				<p>© 2021 Stock Market. All Rights Reserved | Design by
+					<a target="_blank" href="http://interviewask.com">Stock Market</a>
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- Modal -->
+
+	<script src="js/jquery-2.2.3.min.js"></script>
+<!-- js-->
+<!-- Banner Responsiveslides -->
+	<script src="js/responsiveslides.min.js"></script>
+	<script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+			// Slideshow 4
+			$("#slider3").responsiveSlides({
+				auto: true,
+				pager: true,
+				nav: false,
+				speed: 500,
+				namespace: "callbacks",
+				before: function () {
+					$('.events').append("<li>before event fired.</li>");
+				},
+				after: function () {
+					$('.events').append("<li>after event fired.</li>");
+				}
+			});
+
+		});
+	</script>
+<!-- // Banner Responsiveslides -->
+<!-- stats -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	
+	</script>
+
+	<script>
+		function unitChanged(id, error) {
+		  if (document.getElementById(id).value != '') {
+			document.getElementById(error).innerHTML = '';
+			return;
+		  } else {
+			document.getElementById(error).innerHTML = 'Field is Required';
+		  }
+		}
+		function getAverage() {
+	
+		  if (document.getElementById("units1").value == '') {
+			document.getElementById("error1").innerHTML = "Units required";
+			return;
+		  } else if (document.getElementById("Price1").value == '') {
+			document.getElementById("error2").innerHTML = "Price required";
+			return;
+		  } else if (document.getElementById("units2").value == '') {
+			document.getElementById("error3").innerHTML = "Units required";
+			return;
+		  } else if (document.getElementById("Price2").value == '') {
+			document.getElementById("error4").innerHTML = "Price required";
+			return;
+		  }
+	
+		  var unit1 = document.getElementById("units1").value;
+		  var price1 = document.getElementById("Price1").value;
+		  var unit2 = document.getElementById("units2").value;
+		  var price2 = document.getElementById("Price2").value;
+	
+		  var res1 = (unit1 * price1) + (unit2 * price2);
+		  var res2 = +unit1 + +unit2;
+		  var result = res1 / res2;
+		  document.getElementById("investedamount1").innerHTML ="<span>Amount invested </span> " + unit1 * price1;
+		  document.getElementById("investedamount2").innerHTML ="<span>Amount invested </span> " + unit2 * price2;
+		  document.getElementById("result").innerHTML = "<span class='col-sm-6'>Total units </span><bold>"
+			+ res2 + "</bold><br/><br/><span class='col-sm-6'>Average Price</span> <bold>" + result + "</bold>" 
+			+ "<br/><br/><span>Total Amount</span> &nbsp;&nbsp;&nbsp;<bold>"
+			+ res1 + "</bold>";
+		}
+		function clearFields() {
+		  document.getElementById("units1").value = '';
+		  document.getElementById("Price1").value = '';
+		  document.getElementById("units2").value = '';
+		  document.getElementById("Price2").value = '';
+		  document.getElementById("result").innerHTML = '';
+		  document.getElementById("investedamount1").innerHTML = '';
+		  document.getElementById("investedamount2").innerHTML = '';
+		}
+	  </script>
+	<!-- //Bootstrap Core JavaScript -->
+</body>
+</html>

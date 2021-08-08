@@ -202,6 +202,27 @@
 		</div>
 </section>
 <!-- clients -->
+	
+	<!---youtube stock videos---->
+	
+	<section class="wthree-row w3-about py-5">
+        <div class="container py-md-4 mt-md-3">
+            <h1 class="heading-agileinfo">Youtube stocks videos</h1>
+            <span class="w3-line black"></span>
+            <div class="card-deck mt-md-5 pt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Watch Videos</h5>
+                        <div class="card-body w3ls-card">
+                            <div class="row" id="youtubelinks">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 <!--footer-->
@@ -372,6 +393,27 @@
 		  document.getElementById("investedamount2").innerHTML = '';
 		}
 	  </script>
+
+<script>
+        $(document).ready(function() {
+
+            // FETCHING DATA FROM JSON FILE
+            $.getJSON("links.json",
+                function(data) {
+                    var stocks = '';
+
+                    // ITERATING THROUGH OBJECTS
+                    $.each(data, function(key, value) {
+
+                        stocks += `<div class='col-xs-12 col-md-6 col-sm-6'><iframe width="420" height="315" src="${value}"></iframe></div>`
+
+                    });
+
+                    //INSERTING ROWS INTO TABLE 
+                    $('#youtubelinks').append(stocks);
+                });
+        });
+    </script>
 	<!-- //Bootstrap Core JavaScript -->
 </body>
 </html>

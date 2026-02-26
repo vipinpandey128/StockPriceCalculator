@@ -1,423 +1,1138 @@
-
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Indian Stock Market Average Price Calculator</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="google-site-verification" content="Pj9KmYgIAHnPBST56Txfk_Lw42bIBjJqJXU7PKxJ858" />
-	<meta name="description" content="Indian Stock Market Average Price Calculator. This application allows to calculate stock average on entering first and second buy details" />
-	<meta name="keywords" content="Indian Stock Market Average Price Calculator,stock price average calculator, stock price ,average calculator, Indian stock market, average calculator, stock calculator, cash and carry calculator, intraday stock price calculator, future & option stock price calculator, zerodha, upstox, kite login, zerodha calculator,average price calculator excel, average price calculator stock, average price calculator crypto,average price calculator formula, average price calculator zerodha, average price calculator upstox, average price calculator india, average price calculator share, average price calculator isaham, average price calculator in rupees, average price calculator app, average price calculator col, stock average price calculator excel,  ">
-	<meta name="author" content="Vipin Pandey">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-	
-	<link rel = "icon" href ="images/icon.png" 
-        type = "image/x-icon">
+  <!-- ===== SEO META TAGS ===== -->
+  <title>Stock Average Price Calculator – Free Online Tool | StockAvgCalc</title>
+  <meta name="description" content="Calculate your average stock purchase price instantly. Enter multiple buy orders with quantity and price to get your weighted average cost per share. Free, fast, and accurate." />
+  <meta name="keywords" content="stock average price calculator, average cost basis calculator, stock buy average, weighted average stock price, share average calculator, investment calculator, stock portfolio tool" />
+  <meta name="author" content="StockAvgCalc" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://vipinpandey128.github.io/stock-avg-calc/" />
 
-	<!-- Bootstrap Core CSS -->
-	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<!-- pop up box -->
-	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- font-awesome icons -->
-	<link href="css/fontawesome-all.min.css" rel="stylesheet">
-	<!-- //Custom Theme files -->
-	<!-- online fonts -->
-	<!-- titles -->
-	<link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
-	<!-- body -->
-	<link href="//fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
+  <!-- Open Graph (Social Share) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Stock Average Price Calculator – Free Online Tool" />
+  <meta property="og:description" content="Calculate your weighted average stock purchase price instantly. Track multiple buy orders and know your real cost basis." />
+  <meta property="og:url" content="https://vipinpandey128.github.io/stock-avg-calc/" />
+  <meta property="og:image" content="https://vipinpandey128.github.io/stock-avg-calc/og-image.png" />
+  <meta property="og:site_name" content="StockAvgCalc" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Stock Average Price Calculator" />
+  <meta name="twitter:description" content="Free tool to calculate your average stock cost basis across multiple buy orders." />
+  <meta name="twitter:image" content="https://vipinpandey128.github.io/stock-avg-calc/og-image.png" />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Stock Average Price Calculator",
+    "url": "https://vipinpandey128.github.io/stock-avg-calc/",
+    "description": "Calculate the weighted average purchase price of stocks across multiple buy orders.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:         #f0f4f0;
+      --surface:    #ffffff;
+      --surface2:   #f7faf7;
+      --border:     #d4e0d4;
+      --accent:     #1a7a3c;
+      --accent-lt:  #2ea858;
+      --accent-dim: #c8e6d4;
+      --red:        #d63040;
+      --red-dim:    #fde8ea;
+      --gold:       #b07d1a;
+      --gold-dim:   #fef3d0;
+      --text:       #0e1a0e;
+      --text-mid:   #3a5a3a;
+      --text-dim:   #7a9a7a;
+      --shadow:     0 4px 24px rgba(26,122,60,0.10);
+      --radius:     16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── TICKER MARQUEE ─── */
+    .ticker-bar {
+      background: var(--accent);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      padding: 7px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    .ticker-bar::before,
+    .ticker-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .ticker-bar::before { left: 0; background: linear-gradient(to right, var(--accent), transparent); }
+    .ticker-bar::after  { right: 0; background: linear-gradient(to left, var(--accent), transparent); }
+
+    .ticker-track {
+      display: inline-block;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .tick-item { display: inline-block; margin: 0 28px; }
+    .tick-item .sym { font-weight: 700; margin-right: 6px; }
+    .tick-item .up   { color: #a8f0c0; }
+    .tick-item .down { color: #ffb3b3; }
+
+    /* ─── AD BANNER TOP ─── */
+    .ad-banner {
+      background: linear-gradient(90deg, #fffbe6 0%, #fff7d6 100%);
+      border-bottom: 1px solid #e8d88a;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      animation: fadeDown 0.6s ease forwards;
+    }
+    .ad-banner a { color: var(--gold); text-decoration: underline dotted; }
+    .ad-banner .ad-label {
+      display: inline-block;
+      font-size: 9px;
+      background: var(--gold);
+      color: #fff;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-right: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      vertical-align: middle;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      animation: fadeDown 0.5s ease forwards;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text { font-size: 20px; font-weight: 800; color: var(--text); line-height: 1; }
+    .logo-text span { color: var(--accent); }
+    .logo-sub { font-size: 11px; font-weight: 400; color: var(--text-dim); margin-top: 1px; }
+    header nav { display: flex; gap: 6px; }
+    header nav a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-mid);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    header nav a:hover { background: var(--accent-dim); color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center;
+      padding: 52px 20px 32px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .hero h1 .highlight {
+      color: var(--accent);
+      position: relative;
+      display: inline-block;
+    }
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent-dim);
+      border-radius: 2px;
+      z-index: -1;
+    }
+    .hero p {
+      margin-top: 12px;
+      font-size: 16px;
+      color: var(--text-mid);
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* ─── CALCULATOR CARD ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+    .card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title { font-size: 17px; font-weight: 800; color: var(--text); }
+    .card-sub   { font-size: 12px; color: var(--text-dim); font-weight: 400; margin-top: 2px; }
+    .badge {
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── STOCK SYMBOL INPUT ─── */
+    .symbol-row {
+      padding: 16px 24px 0;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .symbol-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+    .symbol-input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      color: var(--accent);
+      width: 130px;
+      letter-spacing: 2px;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .symbol-input:focus { border-color: var(--accent); background: #fff; }
+
+    /* ─── ORDERS TABLE AREA ─── */
+    .orders-area { padding: 16px 24px; }
+
+    .orders-header {
+      display: grid;
+      grid-template-columns: 40px 1fr 1fr 1fr 40px;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      padding: 0 4px 8px;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .orders-header span:nth-child(2),
+    .orders-header span:nth-child(3),
+    .orders-header span:nth-child(4) { text-align: right; }
+
+    #orders-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .order-row {
+      display: grid;
+      grid-template-columns: 40px 1fr 1fr 1fr 40px;
+      gap: 8px;
+      align-items: center;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      animation: rowIn 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes rowIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .order-row:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .order-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-align: center;
+      background: var(--border);
+      border-radius: 6px;
+      padding: 4px 0;
+    }
+    .order-row input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      width: 100%;
+      text-align: right;
+      padding: 2px 4px;
+    }
+    .order-row input::placeholder { color: var(--text-dim); font-weight: 400; }
+    .order-row .total-cell {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: right;
+      padding: 0 4px;
+    }
+    .del-btn {
+      width: 28px; height: 28px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      border-radius: 7px;
+      color: var(--text-dim);
+      font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      margin: auto;
+    }
+    .del-btn:hover { background: var(--red-dim); color: var(--red); }
+
+    /* ─── ADD ROW BUTTON ─── */
+    .add-row-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      background: var(--surface2);
+      border: 1.5px dashed var(--border);
+      border-radius: 10px;
+      color: var(--text-dim);
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .add-row-btn:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── ACTION BUTTONS ─── */
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding: 0 24px 20px;
+    }
+    .btn-calc {
+      flex: 1;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(26,122,60,0.3);
+    }
+    .btn-calc:hover  { background: var(--accent-lt); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,122,60,0.35); }
+    .btn-calc:active { transform: translateY(0) scale(0.98); }
+    .btn-reset {
+      padding: 14px 20px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+
+    /* ─── RESULT PANEL ─── */
+    .result-panel {
+      display: none;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #eafaf1 0%, #f0faf5 100%);
+      border-top: 1.5px solid var(--accent-dim);
+      animation: resultReveal 0.5s cubic-bezier(0.34,1.2,0.64,1) forwards;
+    }
+    @keyframes resultReveal {
+      from { opacity: 0; transform: scaleY(0.8); transform-origin: top; }
+      to   { opacity: 1; transform: scaleY(1); }
+    }
+    .result-panel.visible { display: block; }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .result-box {
+      background: #fff;
+      border: 1px solid var(--accent-dim);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .result-box.accent {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .result-box .r-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .result-box.accent .r-label { color: rgba(255,255,255,0.7); }
+    .result-box .r-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .result-box.accent .r-value { color: #fff; font-size: 28px; }
+    .result-box .r-value.count  { color: var(--text); font-size: 28px; }
+
+    /* Break-even row */
+    .breakeven-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1.5px solid var(--gold-dim);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+    .breakeven-row .be-icon { font-size: 20px; }
+    .breakeven-row .be-text { font-size: 13px; font-weight: 600; color: var(--gold); }
+    .breakeven-row .be-sub  { font-size: 12px; color: var(--text-dim); font-weight: 400; }
+
+    /* Current price profit row */
+    .profit-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: stretch;
+    }
+    .profit-row input {
+      flex: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      outline: none;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .profit-row input:focus { border-color: var(--accent); }
+    .profit-row button {
+      padding: 0 18px;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .profit-row button:hover { opacity: 0.85; }
+    #profit-result {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+    }
+    #profit-result.profit { background: #eafaf1; color: var(--accent); border: 1px solid var(--accent-dim); }
+    #profit-result.loss   { background: var(--red-dim); color: var(--red); border: 1px solid #f5c0c5; }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; animation: fadeUp 0.7s ease 0.3s both; }
+
+    /* Ad sidebar */
+    .ad-side {
+      background: linear-gradient(160deg, #fffbe6 0%, #fffadc 100%);
+      border: 1.5px solid #e8d88a;
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .ad-side .ad-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #b09030;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .ad-side .ad-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .ad-side .ad-body {
+      font-size: 12.5px;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .ad-side .ad-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .ad-side .ad-cta:hover { opacity: 0.85; }
+    .ad-side .ad-disclaimer { font-size: 10px; color: #b09030; margin-top: 8px; }
+
+    /* How-to card */
+    .how-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .how-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 14px; color: var(--text); }
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+    /* Formula card */
+    .formula-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .formula-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+    .formula-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      line-height: 1.8;
+    }
+
+    /* ─── AD BANNER MIDDLE ─── */
+    .ad-mid {
+      max-width: 1120px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+      width: 100%;
+    }
+    .ad-mid-inner {
+      background: linear-gradient(90deg, #f0faf5 0%, #e8f5ee 50%, #f0faf5 100%);
+      border: 1.5px solid var(--accent-dim);
+      border-radius: var(--radius);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .ad-mid-inner .ad-tag {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .ad-mid-inner .ad-title { font-size: 15px; font-weight: 800; color: var(--text); }
+    .ad-mid-inner .ad-body  { font-size: 12.5px; color: var(--text-mid); }
+    .ad-mid-inner .ad-cta {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .ad-mid-inner .ad-cta:hover { background: var(--accent-lt); }
+
+    /* ─── INFO SECTION ─── */
+    .info-section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      width: 100%;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .info-card .ic-icon { font-size: 28px; margin-bottom: 10px; }
+    .info-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .info-card p  { font-size: 13.5px; color: var(--text-mid); line-height: 1.65; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── ANIMATIONS ─── */
+    .count-up { display: inline-block; }
+    @keyframes numberIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-number { animation: numberIn 0.4s ease forwards; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .main-wrapper { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .ad-mid-inner { flex-direction: column; text-align: center; }
+      header nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .orders-header, .order-row {
+        grid-template-columns: 28px 1fr 1fr 44px;
+      }
+      /* Hide total column on mobile */
+      .orders-header span:nth-child(4),
+      .order-row .total-cell { display: none; }
+    }
+  </style>
 </head>
-
 <body>
-	
-	<a target="_blank" href="https://www.amazon.in/Jhumka-Earrings-Jewellery-traditional-Afghani/dp/B0CTXL4N2G/ref=sr_1_3?crid=1SRXYTH8PQN6I&amp;dib=eyJ2IjoiMSJ9.emU1_0NmUygAqE0RkNwPuYIPAz1o5ZlO2ct-3DpcaQfkvzX1lmNedh3mGX8BNbB34ffU6QtkuQlvg8OUDGJ8MltP6nzS8EDVWT64aJFJr76HUh1hJ97-ergBEijPvWTwq0xiJ_x-C7YD6JUlNu7sK-iWnHxrh7oKMAABN-kUPbArUb0-Jz91eeKhJA2B_MoFyA5V0K_x_XgvAdUHhhFgt988NXcEhSMACoJfgD8TpC9LTN4YXb31M3F-C4OedvOSjomk9dcKeUhxABx_CeIGtaTrI0EcC2380EzDeML_Rqo.8R5RyehKMbboB1vKklRIzw2tsJr5yT33KQqOjccdH1I&amp;dib_tag=se&amp;keywords=jhumka&amp;qid=1708174069&amp;sprefix=jhumk%252Caps%252C228&amp;sr=8-3-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;psc=1&_encoding=UTF8&tag=hmvipin109-21&linkCode=ur2&linkId=55deba1875ff99b1b584e44c317d9496&camp=3638&creative=24630">Jhumka Earrings For Womens Jewellery|traditional Afghani Jhumka for Girls And Women Pack Of 2</a>
-	<!-- header -->
-	<header>
-	<div class="top">
-			<div class="container">
-				<div class="t-op row">
-					<div class="col-sm-6 top-middle">
-						<ul>
-							<li><a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a target="_blank" href="https://www.youtube.com/channel/UC_X3n9JVuK36F4ADJBajM9A?sub_confirmation=1"><i class="fab fa-youtube"></i></a></li>
-						</ul>
-					</div>
-					<div class="col-sm-6 top-left">
-						<ul>
-							<li><i class="fas fa-email"></i> </li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container-fluid" style="background:white">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<h1>
-					<a class="navbar-brand text-capitalize" href="#">
-						Share(Stock) Market Live Trader
-					</a>
-				</h1>
-			</nav>
-		</div>
-	</header>
-	<!-- //header -->
-	
- 
 
-<!-- average price calculator -->
-	<section class="wthree-row w3-about py-5">
-		<div class="container py-md-4 mt-md-3">
-			<h1 class="heading-agileinfo">Indian stock market average calculator</h1>
-			<span class="w3-line black"></span>
-			<div class="card-deck mt-md-5 pt-5">
-				  <div class="card">
-				  <div class="card-body">
-				  <h5 class="card-title">First Buy</h5>
-					<div class="card-body w3ls-card">
-					     <div class="row">
-						 <div class="col-sm-6">
-							<label style="float:left;margin-right:10px;">Quantity</label>
-							<input class="form-control" placeholder="Enter Quantity" type="number" id="units1" autocomplete="off" onchange="unitChanged('units1','error1')" />
-							<span id='error1'></span>
-						 </div>
-						 <div class="col-sm-6">
-							<label style="float:left;margin-right:10px;">Price</label>
-							<input class="form-control" placeholder="Enter Price" type="number" id="Price1" autocomplete="off" onchange="unitChanged('Price1','error2')" />
-							<span id='error2'></span>
-						 </div>
-						 </div>
-					</div>
-				  </div>
-				  </div>
-				   <div class="card">
-				  <div class="card-body">
-				  <h5 class="card-title">Second Buy</h5>
-					<div class="card-body w3ls-card">
-					     <div class="row">
-						 <div class="col-sm-6">
-								<label style="float:left;margin-right:10px;">Quantity</label>
-								<input class="form-control" placeholder="Enter Quantity" type="number" id="units2" autocomplete="off" onchange="unitChanged('units2','error3')" />
-								<span id='error3'></span>
-						 </div>
-						 <div class="col-sm-6">
-							<label style="float:left;margin-right:10px;">Price</label>
-							<input class="form-control" placeholder="Enter Price" type="number" id="Price2" autocomplete="off" onchange="unitChanged('Price2','error4');getAverage()">
-							<span id='error4'></span>
-						 </div>
-						 </div>
-					</div>
-				  </div>
-				  </div>
-				</div>
-				
-				
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="card">
-						<div class="shadow p-3 mb-5 bg-white rounded text-center"><div class="row">
-					<div class="col-md-6">
-						<h5 id="investedamount1"></h5>
-					</div>
-					<div class="col-md-6">
-						<h5 id="investedamount2"></h5>
-					</div>
-					</div>
-					<div class="row">
-					<div class="col-md-12 st">
-						<h5 id="result"></h5><br><br>
-					</div>
-					
-					</div>
-					<div class="row">
-						<div class="col-md-12 st">
-							<button class="btn btn-outline-success" onclick="getAverage()"> Calculate Average</button>
-							<button class="btn btn-outline-danger" onclick="clearFields()">Clear Fields</button>
-						</div>
-					</div>
-				</div>
-					</div>
-				</div>
-			</div>			
-            </div>
-        </section>
-<!-- //news -->
+<!-- ─── TICKER MARQUEE ─── -->
+<div class="ticker-bar" aria-label="Live stock tickers (demo)">
+  <div class="ticker-track">
+    <span class="tick-item"><span class="sym">AAPL</span><span class="up">▲ 189.30 +1.2%</span></span>
+    <span class="tick-item"><span class="sym">TSLA</span><span class="down">▼ 248.50 -0.8%</span></span>
+    <span class="tick-item"><span class="sym">MSFT</span><span class="up">▲ 415.20 +0.5%</span></span>
+    <span class="tick-item"><span class="sym">NVDA</span><span class="up">▲ 875.60 +2.1%</span></span>
+    <span class="tick-item"><span class="sym">GOOGL</span><span class="down">▼ 172.40 -0.3%</span></span>
+    <span class="tick-item"><span class="sym">AMZN</span><span class="up">▲ 185.90 +1.4%</span></span>
+    <span class="tick-item"><span class="sym">META</span><span class="up">▲ 501.30 +0.9%</span></span>
+    <span class="tick-item"><span class="sym">NIFTY50</span><span class="up">▲ 22,350 +0.6%</span></span>
+    <span class="tick-item"><span class="sym">SENSEX</span><span class="up">▲ 73,800 +0.4%</span></span>
+    <span class="tick-item"><span class="sym">RELIANCE</span><span class="down">▼ 2,890 -0.2%</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="tick-item"><span class="sym">AAPL</span><span class="up">▲ 189.30 +1.2%</span></span>
+    <span class="tick-item"><span class="sym">TSLA</span><span class="down">▼ 248.50 -0.8%</span></span>
+    <span class="tick-item"><span class="sym">MSFT</span><span class="up">▲ 415.20 +0.5%</span></span>
+    <span class="tick-item"><span class="sym">NVDA</span><span class="up">▲ 875.60 +2.1%</span></span>
+    <span class="tick-item"><span class="sym">GOOGL</span><span class="down">▼ 172.40 -0.3%</span></span>
+    <span class="tick-item"><span class="sym">AMZN</span><span class="up">▲ 185.90 +1.4%</span></span>
+    <span class="tick-item"><span class="sym">META</span><span class="up">▲ 501.30 +0.9%</span></span>
+    <span class="tick-item"><span class="sym">NIFTY50</span><span class="up">▲ 22,350 +0.6%</span></span>
+    <span class="tick-item"><span class="sym">SENSEX</span><span class="up">▲ 73,800 +0.4%</span></span>
+    <span class="tick-item"><span class="sym">RELIANCE</span><span class="down">▼ 2,890 -0.2%</span></span>
+  </div>
+</div>
 
-<!-- clients -->
-	<section class="features py-md-5">
-		<div class="container py-md-4 mt-md-3">
-			<h3 class="heading-agileinfo text-white">Open your demat account and start investing <span class="text-white">Speed Up to Grow Yourself</span></h3>
-			<span class="w3-line black"></span>
-			<div class="row about-main pt-5 mt-md-5">
-				<div class="col-lg-12 col-md-12 col-sm-12 about-right">
-				<!-- stats -->
-					<div class="stats1">
-						<div class="row stats_inner">
-							
-							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
-									<a target="_blank" href="https://www.amazon.in/dp/B099WZKL7D?ref_=cm_sw_r_mwn_dp_2D7MCYFHPYPY9S4K79R8&_encoding=UTF8&tag=hmvipin1-21&linkCode=ur2&linkId=ad41066a0ea284cea08d724159fc67b0&camp=3638&creative=24630">vipin pandey</a>
-								</div>	
-							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
-									<a href="https://bv7np.app.goo.gl/gPEXDgQS6g1Jsf849" target="_blank">
-										<img style="height: 271px;" src="images/upstox.jpg" alt="logo1">
-									</a>
-								</div>
-							
-							
-								<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
-									<a href="https://zerodha.com/open-account?c=UV3833" target="_blank">
-										<img style="height: 271px;" src="images/zerodha.png" alt="logo1">
-									</a>
-								</div>
-							
-						</div>
-						<div class="row stats_inner top-st">
-							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
-								<a href="https://www.youtube.com/channel/UCtKeXx2nH7Kab4SiCI9iT3w?sub_confirmation=1" target="_blank">
-									<img style="height: 271px;"  src="images/youtube.jpg" alt="logo1">
-								</a>
-							</div>
-							<div class="col-md-6 col-sm-6 col-xs-6 stat-grids">
-								<a target="_blank" href="https://coinswitch.co/in/refer?tag=Ufks">
-									<img style="height: 271px;"  src="images/coinkuber.jpg" alt="logo1">
-								</a>
-							</div>
-							
-						</div>
-						
-					</div>
-					<!-- //stats -->
-				</div>
-					    
-			</div>
-			</div>
-		</div>
+<!-- ─── AD BANNER TOP ─── -->
+<div class="ad-banner" role="complementary" aria-label="Advertisement">
+  <span class="ad-label">AD</span>
+  📈 <strong>Open a Demat Account with Zerodha</strong> — India's #1 discount broker. Zero brokerage on equity delivery.
+  <a href="#" target="_blank" rel="noopener sponsored">Open Free Account →</a>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <a class="logo" href="#" aria-label="StockAvgCalc Home">
+    <div class="logo-icon">📊</div>
+    <div>
+      <div class="logo-text">Stock<span>Avg</span>Calc</div>
+      <div class="logo-sub">Free Stock Average Calculator</div>
+    </div>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#calculator">Calculator</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero" aria-label="Hero section">
+  <h1>Calculate Your <span class="highlight">Stock Average</span><br/>Price in Seconds</h1>
+  <p>Add all your buy orders and instantly get your <strong>weighted average cost per share</strong> — essential for every investor tracking their portfolio.</p>
 </section>
-<!-- clients -->
-	
-	<!---youtube stock videos---->
-	
-	<section class="wthree-row w3-about py-5">
-        <div class="container-fluid py-md-4 mt-md-3">
-            <h1 class="heading-agileinfo">Youtube stocks videos</h1>
-            <span class="w3-line black"></span>
-            <div class="card-deck mt-md-5 pt-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Watch Videos</h5>
-                        <div class="card-body w3ls-card">
-                            <div class="row" id="youtubelinks">
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ─── MAIN ─── -->
+<main class="main-wrapper" id="calculator" aria-label="Calculator">
+
+  <!-- ── CALCULATOR CARD ── -->
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Average Price Calculator</div>
+          <div class="card-sub">Enter each buy order — quantity &amp; price per share</div>
         </div>
-    </section>
+        <span class="badge">FREE TOOL</span>
+      </div>
 
+      <!-- Symbol -->
+      <div class="symbol-row">
+        <label for="symbol-input">Stock Symbol:</label>
+        <input type="text" id="symbol-input" class="symbol-input" maxlength="10" placeholder="e.g. AAPL" aria-label="Stock ticker symbol" />
+      </div>
 
-<!--footer-->
-	<footer>
-		<div class="container py-md-4 mt-md-3">
-			<div class="row footer-top-w3layouts-agile py-5">
-				<div class="col-lg-4 col-md-6 col-sm-6 footer-grid">
-					<div class="footer-title">
-						<h3>About Us</h3>
-					</div>
-					<div class="footer-text">
-						<p>We are a team where you can get free analysis video and information to invest your money in good stocks and make profit.</p>
+      <!-- Orders -->
+      <div class="orders-area" id="orders-area">
+        <div class="orders-header" aria-hidden="true">
+          <span>#</span>
+          <span>Qty (Shares)</span>
+          <span>Buy Price (₹/$)</span>
+          <span>Total Value</span>
+          <span></span>
+        </div>
+        <div id="orders-list" role="list" aria-label="Buy order rows"></div>
+        <button class="add-row-btn" onclick="addRow()" aria-label="Add another buy order">
+          <span style="font-size:18px;line-height:1">＋</span> Add Buy Order
+        </button>
+      </div>
 
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6 footer-grid">
-					<div class="footer-title">
-						<h3>Contact Us</h3>
-					</div>
-					<div class="footer-office-hour">
-						<ul>
-							<li class="hd"></li>
-							<li></li>
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn-calc" onclick="calculate()" aria-label="Calculate average price">📊 Calculate Average</button>
+        <button class="btn-reset" onclick="resetAll()" aria-label="Reset calculator">Reset</button>
+      </div>
 
-						</ul>
-						<ul>
-							<li class="hd"></li>
-							<li class="hd">Email:
-								<a href="mailto:hmvipin1@gmail.com">Swing Trader</a>
-							</li>
-							<li class="hd"></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6 footer-grid">
-					<div class="footer-title">
-						<h3>Subscribe</h3>
-					</div>
-					<p>To get notification about stocks and IPO's</p>
-					<form action="#" method="post" class="newsletter">
-						<input class="email" type="email" placeholder="Your email..." required="">
-						<button class="btn1">
-							<i class="far fa-envelope"></i>
-						</button>
-					</form>
-					<div class="clearfix"><h1>Indian stock market average calculator</h1></div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!---->
-	<div class="copyright py-3">
-		<div class="container">
-			<div class="copyrighttop">
-				<ul>
-					<li>
-						<h4>Follow us on:</h4>
-					</li>
-					<li>
-						<a class="facebook" href="#">
-							<i class="fab fa-facebook-f"></i>
-						</a>
-					</li>
-					<li>
-						<a class="facebook" href="#">
-							<i class="fab fa-twitter"></i>
-						</a>
-					</li>
-					<li>
-						<a class="facebook" href="#">
-							<i class="fab fa-google-plus-g"></i>
-						</a>
-					</li>
-					<li>
-						<a class="facebook" href="https://www.youtube.com/channel/UCtKeXx2nH7Kab4SiCI9iT3w?sub_confirmation=1">
-							<i class="fab youtube"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="copyrightbottom">
-				<p>© 2021 Stock Market. All Rights Reserved | Design by
-					<a target="_blank" href="http://interviewask.com">Stock Market</a>
-				</p>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<!-- Modal -->
+      <!-- Result -->
+      <div class="result-panel" id="result-panel" role="region" aria-live="polite" aria-label="Calculation results">
+        <div class="result-grid">
+          <div class="result-box accent">
+            <div class="r-label">Avg Price / Share</div>
+            <div class="r-value" id="res-avg">—</div>
+          </div>
+          <div class="result-box">
+            <div class="r-label">Total Shares</div>
+            <div class="r-value count" id="res-shares">—</div>
+          </div>
+          <div class="result-box">
+            <div class="r-label">Total Invested</div>
+            <div class="r-value" id="res-total" style="font-size:20px;color:var(--text)">—</div>
+          </div>
+          <div class="result-box">
+            <div class="r-label">No. of Orders</div>
+            <div class="r-value count" id="res-orders">—</div>
+          </div>
+        </div>
 
-	<script src="js/jquery-2.2.3.min.js"></script>
-<!-- js-->
-<!-- Banner Responsiveslides -->
-	<script src="js/responsiveslides.min.js"></script>
-	<script>
-		// You can also use "$(window).load(function() {"
-		$(function () {
-			// Slideshow 4
-			$("#slider3").responsiveSlides({
-				auto: true,
-				pager: true,
-				nav: false,
-				speed: 500,
-				namespace: "callbacks",
-				before: function () {
-					$('.events').append("<li>before event fired.</li>");
-				},
-				after: function () {
-					$('.events').append("<li>after event fired.</li>");
-				}
-			});
+        <div class="breakeven-row">
+          <span class="be-icon">🎯</span>
+          <div>
+            <div class="be-text">Break-even Price: <span id="res-breakeven">—</span></div>
+            <div class="be-sub">Your average price is your exact break-even point.</div>
+          </div>
+        </div>
 
-		});
-	</script>
-<!-- // Banner Responsiveslides -->
-<!-- stats -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	
-	</script>
+        <!-- P&L check -->
+        <div class="profit-row" style="margin-top:12px;">
+          <input type="number" id="current-price" placeholder="Enter current market price…" aria-label="Current market price for P&L calculation" min="0" />
+          <button onclick="calcPnl()" aria-label="Calculate profit or loss">P&amp;L →</button>
+        </div>
+        <div id="profit-result" role="status"></div>
+      </div>
+    </div>
 
-	<script>
-		function unitChanged(id, error) {
-		  if (document.getElementById(id).value != '') {
-			document.getElementById(error).innerHTML = '';
-			return;
-		  } else {
-			document.getElementById(error).innerHTML = 'Field is Required';
-		  }
-		}
-		function getAverage() {
-	
-		  if (document.getElementById("units1").value == '') {
-			document.getElementById("error1").innerHTML = "Units required";
-			return;
-		  } else if (document.getElementById("Price1").value == '') {
-			document.getElementById("error2").innerHTML = "Price required";
-			return;
-		  } else if (document.getElementById("units2").value == '') {
-			document.getElementById("error3").innerHTML = "Units required";
-			return;
-		  } else if (document.getElementById("Price2").value == '') {
-			document.getElementById("error4").innerHTML = "Price required";
-			return;
-		  }
-	
-		  var unit1 = document.getElementById("units1").value;
-		  var price1 = document.getElementById("Price1").value;
-		  var unit2 = document.getElementById("units2").value;
-		  var price2 = document.getElementById("Price2").value;
-	
-		  var res1 = (unit1 * price1) + (unit2 * price2);
-		  var res2 = +unit1 + +unit2;
-		  var result = res1 / res2;
-		  document.getElementById("investedamount1").innerHTML ="<span>Amount invested </span> " + unit1 * price1;
-		  document.getElementById("investedamount2").innerHTML ="<span>Amount invested </span> " + unit2 * price2;
-		  document.getElementById("result").innerHTML = "<span class='col-sm-6'>Total units </span><bold>"
-			+ res2 + "</bold><br/><br/><span class='col-sm-6'>Average Price</span> <bold>" + result + "</bold>" 
-			+ "<br/><br/><span>Total Amount</span> &nbsp;&nbsp;&nbsp;<bold>"
-			+ res1 + "</bold>";
-		}
-		function clearFields() {
-		  document.getElementById("units1").value = '';
-		  document.getElementById("Price1").value = '';
-		  document.getElementById("units2").value = '';
-		  document.getElementById("Price2").value = '';
-		  document.getElementById("result").innerHTML = '';
-		  document.getElementById("investedamount1").innerHTML = '';
-		  document.getElementById("investedamount2").innerHTML = '';
-		}
-	  </script>
+    <!-- In-feed ad -->
+    <div style="margin-top:20px;" aria-label="Advertisement" role="complementary">
+      <div class="ad-mid-inner" style="border-radius:var(--radius); border:1.5px solid var(--accent-dim); background:linear-gradient(90deg,#f0faf5,#e8f5ee 50%,#f0faf5); padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">Sponsored</div>
+          <div style="font-size:15px;font-weight:800;color:var(--text);">Groww — Start Investing Today</div>
+          <div style="font-size:12.5px;color:var(--text-mid);">Mutual Funds &amp; Stocks in one app. Zero commission on direct funds.</div>
+        </div>
+        <a href="#" target="_blank" rel="noopener sponsored" style="display:inline-block;background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:10px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;">Start Investing →</a>
+      </div>
+    </div>
+  </div>
 
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" aria-label="Sidebar">
+
+    <!-- Sidebar Ad -->
+    <div class="ad-side" role="complementary" aria-label="Advertisement">
+      <div class="ad-tag">Advertisement</div>
+      <div class="ad-title">📱 Angel One App</div>
+      <div class="ad-body">Trade stocks, F&amp;O, and IPOs with India's fastest execution. Get ₹0 brokerage for 30 days.</div>
+      <a href="#" class="ad-cta" target="_blank" rel="noopener sponsored">Download Free App</a>
+      <div class="ad-disclaimer">Sponsored · Investment subject to market risk</div>
+    </div>
+
+    <!-- How to use -->
+    <div class="how-card" id="how-it-works">
+      <h3>📖 How to Use</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Enter your <strong>stock symbol</strong> (optional, for reference).</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Add a row for <strong>each time you bought</strong> shares.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Enter the <strong>quantity</strong> and <strong>buy price</strong> for each order.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Click <strong>Calculate Average</strong> to get your weighted average cost.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-text">Enter the <strong>current price</strong> to check your profit or loss instantly.</div>
+      </div>
+    </div>
+
+    <!-- Formula -->
+    <div class="formula-card">
+      <h3>🧮 Formula Used</h3>
+      <div class="formula-box">
+        Avg Price =<br/>
+        Σ (Qty × Price)<br/>
+        ────────────────<br/>
+        Σ (Qty)<br/><br/>
+        <span style="color:var(--text-mid)">= Total Invested ÷ Total Shares</span>
+      </div>
+    </div>
+
+    <!-- Sidebar Ad 2 -->
+    <div class="ad-side" style="background:linear-gradient(160deg,#f0f4ff,#e8eeff);" role="complementary" aria-label="Advertisement">
+      <div class="ad-tag" style="color:#4060c0;">Advertisement</div>
+      <div class="ad-title">📊 Smallcase – Curated Portfolios</div>
+      <div class="ad-body" style="color:#3050a0;">Invest in expert-built stock baskets. Start with just ₹500.</div>
+      <a href="#" class="ad-cta" style="background:#3060e0;" target="_blank" rel="noopener sponsored">Explore Smallcases</a>
+      <div class="ad-disclaimer" style="color:#6080c0;">Sponsored · SEBI Registered RA</div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ─── INFO SECTION ─── -->
+<section class="info-section" id="about" aria-label="About the calculator">
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="ic-icon">⚖️</div>
+      <h3>What is Average Stock Price?</h3>
+      <p>When you buy the same stock multiple times at different prices, your <strong>average cost basis</strong> is the weighted average of all your purchases. This tells you exactly what price you need to break even.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">📉</div>
+      <h3>Why Use Dollar-Cost Averaging?</h3>
+      <p>Buying more shares when prices dip lowers your average cost and reduces risk. This strategy, known as DCA or <strong>"averaging down"</strong>, is used by institutional and retail investors alike.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">🔢</div>
+      <h3>How to Calculate It?</h3>
+      <p>Multiply each order's quantity by its price to get the value, sum all values, then divide by total shares. Our tool does this instantly — no spreadsheet needed.</p>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">🇮🇳</div>
+      <h3>Works for NSE, BSE &amp; Global Markets</h3>
+      <p>Whether you trade on NSE/BSE, NYSE, NASDAQ, or any exchange — this calculator works universally with any currency or price format.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>
+    © 2025 <strong>StockAvgCalc</strong> — Free Stock Average Price Calculator |
+    <a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a> · <a href="#">Contact</a>
+  </p>
+  <p style="margin-top:6px;font-size:11px;">
+    ⚠️ This tool is for educational purposes only. Not financial advice.
+    Always consult a SEBI-registered investment advisor before investing.
+  </p>
+</footer>
+
+<!-- ─── JAVASCRIPT ─── -->
 <script>
-        $(document).ready(function() {
+  let rowCount = 0;
 
-            // FETCHING DATA FROM JSON FILE
-            $.getJSON("links.json",
-                function(data) {
-                    var stocks = '';
+  function addRow(qty = '', price = '') {
+    rowCount++;
+    const list = document.getElementById('orders-list');
+    const div = document.createElement('div');
+    div.className = 'order-row';
+    div.setAttribute('role', 'listitem');
+    div.setAttribute('data-id', rowCount);
+    div.innerHTML = `
+      <div class="order-num">${rowCount}</div>
+      <input type="number" class="qty-input" min="0" step="any" placeholder="100" value="${qty}"
+             aria-label="Quantity for order ${rowCount}" oninput="updateRowTotal(this)" />
+      <input type="number" class="price-input" min="0" step="any" placeholder="250.00" value="${price}"
+             aria-label="Price for order ${rowCount}" oninput="updateRowTotal(this)" />
+      <div class="total-cell" aria-label="Total for order ${rowCount}">—</div>
+      <button class="del-btn" onclick="removeRow(this)" aria-label="Delete order ${rowCount}" title="Remove row">✕</button>
+    `;
+    list.appendChild(div);
+    if (qty && price) updateRowTotal(div.querySelector('.qty-input'));
+  }
 
-                    // ITERATING THROUGH OBJECTS
-                    $.each(data, function(key, value) {
-	
-                        stocks += `<div class='col-xs-12 col-md-4 col-sm-4'><iframe src="https://www.youtube.com/embed/${value.link}"></iframe></div>`
+  function updateRowTotal(input) {
+    const row = input.closest('.order-row');
+    const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+    const price = parseFloat(row.querySelector('.price-input').value) || 0;
+    const cell = row.querySelector('.total-cell');
+    cell.textContent = (qty > 0 && price > 0) ? formatCurrency(qty * price) : '—';
+  }
 
-                    });
+  function removeRow(btn) {
+    const row = btn.closest('.order-row');
+    row.style.animation = 'none';
+    row.style.transition = 'opacity 0.2s, transform 0.2s';
+    row.style.opacity = '0';
+    row.style.transform = 'scale(0.95)';
+    setTimeout(() => row.remove(), 200);
+  }
 
-                    //INSERTING ROWS INTO TABLE 
-                    $('#youtubelinks').append(stocks);
-                });
-        });
-    </script>
-	<!-- //Bootstrap Core JavaScript -->
+  function formatCurrency(n) {
+    if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + 'Cr';
+    if (n >= 100000)   return '₹' + (n/100000).toFixed(2) + 'L';
+    if (n >= 1000)     return '₹' + n.toLocaleString('en-IN', {maximumFractionDigits:2});
+    return '₹' + n.toFixed(2);
+  }
+
+  function calculate() {
+    const rows = document.querySelectorAll('.order-row');
+    let totalValue = 0, totalQty = 0, validRows = 0;
+
+    for (const row of rows) {
+      const qty   = parseFloat(row.querySelector('.qty-input').value);
+      const price = parseFloat(row.querySelector('.price-input').value);
+      if (!qty || !price || qty <= 0 || price <= 0) continue;
+      totalValue += qty * price;
+      totalQty   += qty;
+      validRows++;
+    }
+
+    if (validRows === 0 || totalQty === 0) {
+      alert('Please enter at least one valid buy order with quantity and price.');
+      return;
+    }
+
+    const avgPrice = totalValue / totalQty;
+    const panel = document.getElementById('result-panel');
+    panel.classList.remove('visible');
+    void panel.offsetWidth;
+    panel.classList.add('visible');
+
+    animateValue('res-avg',    '₹' + avgPrice.toFixed(2));
+    animateValue('res-shares', totalQty.toLocaleString('en-IN'));
+    animateValue('res-total',  formatCurrency(totalValue));
+    animateValue('res-orders', validRows.toString());
+    animateValue('res-breakeven', '₹' + avgPrice.toFixed(2));
+
+    document.getElementById('profit-result').style.display = 'none';
+    document.getElementById('current-price').value = '';
+
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    window._lastAvg   = avgPrice;
+    window._lastQty   = totalQty;
+    window._lastTotal = totalValue;
+  }
+
+  function animateValue(id, value) {
+    const el = document.getElementById(id);
+    el.classList.remove('animate-number');
+    void el.offsetWidth;
+    el.textContent = value;
+    el.classList.add('animate-number');
+  }
+
+  function calcPnl() {
+    const currentPrice = parseFloat(document.getElementById('current-price').value);
+    if (!currentPrice || currentPrice <= 0) {
+      alert('Please enter a valid current market price.');
+      return;
+    }
+    const avg   = window._lastAvg;
+    const qty   = window._lastQty;
+    const total = window._lastTotal;
+
+    if (!avg) { alert('Please calculate average first.'); return; }
+
+    const currentValue = currentPrice * qty;
+    const pnl          = currentValue - total;
+    const pnlPct       = (pnl / total) * 100;
+    const el           = document.getElementById('profit-result');
+
+    el.style.display = 'block';
+    if (pnl >= 0) {
+      el.className = 'profit';
+      el.innerHTML = `🟢 <strong>PROFIT: ₹${Math.abs(pnl).toLocaleString('en-IN', {maximumFractionDigits:2})} (+${pnlPct.toFixed(2)}%)</strong> — Current value ₹${currentValue.toLocaleString('en-IN',{maximumFractionDigits:2})}`;
+    } else {
+      el.className = 'loss';
+      el.innerHTML = `🔴 <strong>LOSS: ₹${Math.abs(pnl).toLocaleString('en-IN', {maximumFractionDigits:2})} (-${Math.abs(pnlPct).toFixed(2)}%)</strong> — Current value ₹${currentValue.toLocaleString('en-IN',{maximumFractionDigits:2})}`;
+    }
+    animateValue('profit-result', el.textContent);
+  }
+
+  function resetAll() {
+    document.getElementById('orders-list').innerHTML = '';
+    document.getElementById('result-panel').classList.remove('visible');
+    document.getElementById('symbol-input').value = '';
+    document.getElementById('current-price').value = '';
+    document.getElementById('profit-result').style.display = 'none';
+    rowCount = 0;
+    window._lastAvg = window._lastQty = window._lastTotal = null;
+    addRow(); addRow(); addRow();
+  }
+
+  // Keyboard shortcut: Enter to calculate
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') calculate();
+  });
+
+  // Init with 3 rows
+  addRow(); addRow(); addRow();
+</script>
 </body>
 </html>
